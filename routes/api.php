@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +21,10 @@ Route::group([
 
 ], function ($router) {
 
-    Route::post('login', 'AuthController@login')->name('auth.login');
-    Route::post('logout', 'AuthController@logout')->name('auth.logout');
-    Route::post('refresh', 'AuthController@refresh')->name('auth.refresh');
-    Route::get('me', 'AuthController@me')->name('auth.me');
-    Route::post('register','AuthController@register')->name('auth.register');
+    Route::post('login',[AuthController::class, 'login'])->name('auth.login');
+    Route::post('logout', [AuthController::class,'logout'])->name('auth.logout');
+    Route::post('refresh', [AuthController::class,'refresh'])->name('auth.refresh');
+    Route::get('me', [AuthController::class,'me'])->name('auth.me');
+    Route::post('register',[AuthController::class,'register'])->name('auth.register');
 
 });
