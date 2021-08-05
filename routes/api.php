@@ -1,18 +1,16 @@
 <?php
 
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ProductoController;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+// Route::middleware('auth:api')->get('/user', function (Request $request){
+//     return $request->user();
+// })
+
+
+
 
 Route::group([
 
@@ -21,10 +19,21 @@ Route::group([
 
 ], function ($router) {
 
-    Route::post('login',[AuthController::class, 'login'])->name('auth.login');
-    Route::post('logout', [AuthController::class,'logout'])->name('auth.logout');
-    Route::post('refresh', [AuthController::class,'refresh'])->name('auth.refresh');
-    Route::get('me', [AuthController::class,'me'])->name('auth.me');
-    Route::post('register',[AuthController::class,'register'])->name('auth.register');
 
+    Route::post('login',[\App\Http\Controllers\AuthController::class, 'login'])->name('login');
+    // Route::post('logout', [\App\Http\Controllers\AuthController::class,'logout'])->name('logout');
+    // Route::post('refresh', [\App\Http\Controllers\AuthController::class,'refresh'])->name('refresh');
+   // Route::get('me', [\App\Http\Controllers\AuthController::class,'me'])->name('me');
 });
+
+Route::get('/categorias',[CategoriaController::class, 'index']);
+Route::post('/categoria',[CategoriaController::class, 'store']);
+Route::get('/categorias/{id}',[CategoriaController::class, 'show']);
+Route::put('/categorias/{id}',[CategoriaController::class, 'update']);
+Route::delete('/categorias/{id}',[CategoriaController::class, 'destroy']);
+
+Route::get('/productos',[ProductoController::class, 'index']);
+Route::post('/producto',[ProductoController::class, 'store']);
+Route::get('/productos/{id}',[ProductoController::class, 'show']);
+Route::put('/productos/{id}',[ProductoController::class, 'update']);
+Route::delete('/productos/{id}',[ProductoController::class, 'destroy']);
